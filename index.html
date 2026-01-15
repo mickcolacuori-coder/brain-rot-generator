@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Brain Rot Generator</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#111111" />
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #2b2b2b, #0b0b0b);
+      color: #eaeaea;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .app {
+      text-align: center;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+    }
+    .phrase {
+      font-size: 1.8rem;
+      line-height: 1.4;
+      margin-bottom: 40px;
+      min-height: 4em;
+    }
+    button {
+      font-size: 1.4rem;
+      padding: 18px 36px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(145deg, #ff7a18, #ffb347);
+      color: #111;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div id="phrase" class="phrase">Tap Generate</div>
+    <button onclick="generate()">GENERATE</button>
+  </div>
+<script>
+const openers = ["Bro is","This device is","Brain is","Certified","Running in","Operating on","Currently experiencing"];
+const modifiers = ["unglimboed","skramble-certified","legally glorp","maximum","unprovoked","beyond recommended","severely"];
+const madeUp = ["glimbo","snorf","worble","quangle","goob","blorp","plink","skramble"];
+const endings = ["protocol","behavior","mode","energy","levels","drift","loop"];
+function random(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function generatePhrase(){return `${random(openers)} ${random(modifiers)} ${random(madeUp)} ${random(endings)}`;}
+function speak(text){
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 0.85; u.pitch = 0.9; u.lang = "en-US";
+  speechSynthesis.speak(u);
+}
+function generate(){
+  const phrase = generatePhrase();
+  document.getElementById("phrase").innerText = phrase;
+  speak(phrase);
+}
+</script>
+</body>
+</html>
