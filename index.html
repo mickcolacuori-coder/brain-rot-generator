@@ -84,12 +84,26 @@ const phrases = [
   "Certified snorf behavior",
   "Running in skramble mode",
   "This feels legally glorp",
-  "Brain temporarily snorfed"
+  "Brain temporarily snorfed",
+  "Operating beyond recommended goob levels"
 ];
+
+function speak(text) {
+  // SAFETY: cancel any current speech
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 0.85;
+  utterance.pitch = 0.9;
+  utterance.lang = "en-US";
+
+  window.speechSynthesis.speak(utterance);
+}
 
 function generate() {
   const phrase = phrases[Math.floor(Math.random() * phrases.length)];
   document.getElementById("phrase").innerText = phrase;
+  speak(phrase);
 }
 </script>
 
