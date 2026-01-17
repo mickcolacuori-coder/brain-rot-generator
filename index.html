@@ -23,6 +23,7 @@ body {
   border: 3px solid #000;
 }
 
+/* Speakers */
 .top {
   display: flex;
   justify-content: space-between;
@@ -37,75 +38,14 @@ body {
   border: 2px solid #333;
 }
 
-.face {
-  background: #000;
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  min-height: 80px;
+/* LED BAR */
+.led {
+  height: 10px;
+  background: #300;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  overflow: hidden;
 }
 
-.phrase {
-  font-size: 20px;
-  text-align: center;
-}
-
-button {
-  width: 100%;
-  padding: 14px;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 12px;
-  border: none;
-  background: #ffb347;
-  color: #111;
-}
-</style>
-</head>
-
-<body>
-
-<div class="boombox">
-  <div class="top">
-    <div class="speaker"></div>
-    <div class="speaker"></div>
-  </div>
-
-  <div class="face">
-    <div id="phrase" class="phrase">Tap Generate</div>
-  </div>
-
-  <button onclick="generate()">GENERATE</button>
-</div>
-
-<script>
-const phrases = [
-  "Bro is operating on unglimboed protocol",
-  "Certified snorf behavior",
-  "Running in skramble mode",
-  "This feels legally glorp",
-  "Brain temporarily snorfed",
-  "Operating beyond recommended goob levels"
-];
-
-function speak(text) {
-  // SAFETY: cancel any current speech
-  window.speechSynthesis.cancel();
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 0.85;
-  utterance.pitch = 0.9;
-  utterance.lang = "en-US";
-
-  window.speechSynthesis.speak(utterance);
-}
-
-function generate() {
-  const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-  document.getElementById("phrase").innerText = phrase;
-  speak(phrase);
-}
-</script>
-
-</body>
-</html>
+.led-fill {
+  height: 100
