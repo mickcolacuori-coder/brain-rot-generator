@@ -98,6 +98,8 @@ button {
 </div>
 
 <script>
+/* ===== Phrase Engine ===== */
+
 const openers = [
   "Bro is",
   "This guy is",
@@ -145,43 +147,39 @@ function generatePhrase() {
   return `${random(openers)} ${random(states)} ${random(descriptors)} ${random(endings)}`;
 }
 
-let ledTimer = null;
-
-function animateLED(duration = 1800) {
-  const led = document.getElementById("ledFill");
-  clearInterval(ledTimer);
-
-  let elapsed = 0;
-  ledTimer = setInterval(() => {
-    elapsed += 150;
-    led.style.width = Math.random() * 100 + "%";
-    if (elapsed >= duration) {
-      clearInterval(ledTimer);
-      led.style.width = "0%";
-    }
-  }, 150);
-}
+/* ===== Voice ===== */
 
 function speak(text) {
   window.speechSynthesis.cancel();
 
-  const u = new SpeechSynthesisUtterance(text);
-  u.rate = 0.8;
-  u.pitch = 0.9;
-  u.lang = "en-US";
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 0.75 + Math.random() * 0.15;
+  utterance.pitch = 0.85 + Math.random() * 0.1;
 
-  window.speechSynthesis.speak(u);
+  const box = document.querySelector(".boombox");
+  box.classList.add("talking");
 
-  // LED runs independently (Safari-safe)
-  animateLED(text.length * 120);
+  utterance.onend = () => box.classList.remove("talking");
+  utterance.onerror = () => box.classList.remove("talking");
+
+  window.speechSynthesis.speak(utterance);
 }
 
+/* ===== Button Hook ===== */
+
 function generate() {
-  const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+  let phrase = generatePhrase();
+
+  if (Math.random() < 0.2) {
+    const words = phrase.split(" ");
+    phrase += " " + words[words.length - 1];
+  }
+
   document.getElementById("phrase").innerText = phrase;
   speak(phrase);
 }
 </script>
+
 
 </body>
 </html>
