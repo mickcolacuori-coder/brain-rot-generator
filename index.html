@@ -98,14 +98,52 @@ button {
 </div>
 
 <script>
-const phrases = [
-  "Bro is operating on unglimboed protocol",
-  "Certified snorf behavior",
-  "Running in skramble mode",
-  "This feels legally glorp",
-  "Brain temporarily snorfed",
-  "Operating beyond recommended goob levels"
+const openers = [
+  "Bro is",
+  "This guy is",
+  "System says bro is",
+  "Warning:",
+  "Alert:",
+  "Certified"
 ];
+
+const states = [
+  "operating on",
+  "running in",
+  "locked into",
+  "experiencing",
+  "trapped inside",
+  "beyond"
+];
+
+const descriptors = [
+  "unglimboed",
+  "skramble",
+  "snorf",
+  "glorp",
+  "whimcore",
+  "goob",
+  "zlorped",
+  "quanked"
+];
+
+const endings = [
+  "protocol",
+  "mode",
+  "behavior",
+  "levels",
+  "firmware",
+  "logic",
+  "settings"
+];
+
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generatePhrase() {
+  return `${random(openers)} ${random(states)} ${random(descriptors)} ${random(endings)}`;
+}
 
 let ledTimer = null;
 
